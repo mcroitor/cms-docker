@@ -13,7 +13,7 @@ services:
     build: 
       context: .
       dockerfile: images/cms-db-init/Dockerfile
-    image: "cms-db-init:latest"
+#    image: "cms-db-init:latest"
     container_name: "cms-db-init"
     depends_on:
       - cms-db
@@ -24,7 +24,7 @@ services:
     build: 
       context: .
       dockerfile: images/cms-log/Dockerfile
-    image: "cms-log:latest"
+#    image: "cms-log:latest"
     container_name: "cms-log"
     restart: unless-stopped
     env_file: 
@@ -38,7 +38,7 @@ services:
     build: 
       context: .
       dockerfile: images/cms-scoring/Dockerfile
-    image: "cms-scoring:latest"
+#    image: "cms-scoring:latest"
     container_name: "cms-scoring"
     restart: unless-stopped
     env_file: 
@@ -52,7 +52,7 @@ services:
     build: 
       context: .
       dockerfile: images/cms-resource/Dockerfile
-    image: "cms-resource:latest"
+#    image: "cms-resource:latest"
     container_name: "cms-resource"
     restart: unless-stopped
     env_file: 
@@ -66,7 +66,7 @@ services:
     build: 
       context: .
       dockerfile: images/cms-proxy/Dockerfile
-    image: "cms-proxy:latest"
+#    image: "cms-proxy:latest"
     container_name: "cms-proxy"
     restart: unless-stopped
     env_file: 
@@ -81,7 +81,7 @@ services:
     build: 
       context: .
       dockerfile: images/cms-printing/Dockerfile
-    image: "cms-printing:latest"
+#    image: "cms-printing:latest"
     container_name: "cms-printing"
     restart: unless-stopped
     env_file: 
@@ -95,7 +95,7 @@ services:
     build: 
       context: .
       dockerfile: images/cms-evaluation/Dockerfile
-    image: "cms-evaluation:latest"
+#    image: "cms-evaluation:latest"
     container_name: "cms-evaluation"
     restart: unless-stopped
     env_file: 
@@ -109,7 +109,7 @@ services:
     build: 
       context: .
       dockerfile: images/cms-checker/Dockerfile
-    image: "cms-checker:latest"
+#    image: "cms-checker:latest"
     container_name: "cms-checker"
     restart: unless-stopped
     env_file: 
@@ -132,13 +132,17 @@ services:
       - cms-worker-1
       - cms-worker-2
       - cms-worker-3
+      - cms-worker-4
+      - cms-worker-5
+      - cms-worker-6
+      - cms-worker-7
         
   # web services
   cms-web-ranking:
     build: 
       context: .
       dockerfile: images/cms-web-ranking/Dockerfile
-    image: "cms-web-ranking:latest"
+#    image: "cms-web-ranking:latest"
     container_name: "cms-web-ranking"
     restart: unless-stopped
     env_file: 
@@ -154,7 +158,7 @@ services:
     build: 
       context: .
       dockerfile: images/cms-web-admin/Dockerfile
-    image: "cms-web-admin:latest"
+#    image: "cms-web-admin:latest"
     container_name: "cms-web-admin"
     restart: unless-stopped
     ports:
@@ -170,7 +174,7 @@ services:
     build: 
       context: .
       dockerfile: images/cms-web-contest/Dockerfile
-    image: "cms-web-contest:latest"
+#    image: "cms-web-contest:latest"
     container_name: "cms-web-contest"
     restart: unless-stopped
     ports:
@@ -188,7 +192,7 @@ services:
     build:
       context: .
       dockerfile: images/cms-worker/Dockerfile
-    image: "cms-worker:latest"
+#    image: "cms-worker:latest"
     container_name: "cms-worker-0"
     restart: unless-stopped
     expose:
@@ -207,7 +211,7 @@ services:
     build:
       context: .
       dockerfile: images/cms-worker/Dockerfile
-    image: "cms-worker:latest"
+#    image: "cms-worker:latest"
     container_name: "cms-worker-1"
     restart: unless-stopped
     expose:
@@ -226,7 +230,7 @@ services:
     build:
       context: .
       dockerfile: images/cms-worker/Dockerfile
-    image: "cms-worker:latest"
+#    image: "cms-worker:latest"
     container_name: "cms-worker-2"
     restart: unless-stopped
     expose:
@@ -245,7 +249,7 @@ services:
     build:
       context: .
       dockerfile: images/cms-worker/Dockerfile
-    image: "cms-worker:latest"
+#    image: "cms-worker:latest"
     container_name: "cms-worker-3"
     restart: unless-stopped
     expose:
@@ -256,6 +260,82 @@ services:
     environment:
       - CMS_WORKER_NAME=cms-worker-3
       - CMS_WORKER_3=0.0.0.0
+    depends_on:
+      - cms-db
+    privileged: true
+
+  cms-worker-4:
+    build:
+      context: .
+      dockerfile: images/cms-worker/Dockerfile
+#    image: "cms-worker:latest"
+    container_name: "cms-worker-4"
+    restart: unless-stopped
+    expose:
+      - "26000"
+    env_file: 
+      - ".env"
+      - "config/config.env"
+    environment:
+      - CMS_WORKER_NAME=cms-worker-4
+      - CMS_WORKER_4=0.0.0.0
+    depends_on:
+      - cms-db
+    privileged: true
+
+  cms-worker-5:
+    build:
+      context: .
+      dockerfile: images/cms-worker/Dockerfile
+#    image: "cms-worker:latest"
+    container_name: "cms-worker-5"
+    restart: unless-stopped
+    expose:
+      - "26000"
+    env_file: 
+      - ".env"
+      - "config/config.env"
+    environment:
+      - CMS_WORKER_NAME=cms-worker-5
+      - CMS_WORKER_5=0.0.0.0
+    depends_on:
+      - cms-db
+    privileged: true
+
+  cms-worker-6:
+    build:
+      context: .
+      dockerfile: images/cms-worker/Dockerfile
+#    image: "cms-worker:latest"
+    container_name: "cms-worker-6"
+    restart: unless-stopped
+    expose:
+      - "26000"
+    env_file: 
+      - ".env"
+      - "config/config.env"
+    environment:
+      - CMS_WORKER_NAME=cms-worker-6
+      - CMS_WORKER_6=0.0.0.0
+    depends_on:
+      - cms-db
+    privileged: true
+
+  cms-worker-7:
+    build:
+      context: .
+      dockerfile: images/cms-worker/Dockerfile
+#    image: "cms-worker:latest"
+    container_name: "cms-worker-7"
+    restart: unless-stopped
+    expose:
+      - "26000"
+    env_file: 
+      - ".env"
+      - "config/config.env"
+    environment:
+      - CMS_WORKER_NAME=cms-worker-7
+      - CMS_WORKER_7=0.0.0.0
     depends_on:
       - cms-db
     privileged: true
